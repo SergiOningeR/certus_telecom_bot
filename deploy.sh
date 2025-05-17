@@ -15,7 +15,7 @@ echo "Creating bot user..."
 sudo useradd -m -d /opt/certus_telecom_bot -s /bin/bash botuser
 
 echo "Cloning repository..."
-sudo -u botuser git clone https://github.com/yourusername/certus_telecom_bot.git /opt/certus_telecom_bot
+sudo -u botuser git clone https://github.com/SergiOningeR/certus_telecom_bot.git /opt/certus_telecom_bot
 
 echo "Setting up virtual environment..."
 sudo -u botuser python3 -m venv /opt/certus_telecom_bot/venv
