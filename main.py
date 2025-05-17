@@ -81,3 +81,12 @@ if __name__ == '__main__':
     else:
         import asyncio
         asyncio.run(main())
+
+@app.get("/tasks/")
+async def get_tasks(api_key: str = Depends(api_key_header)):
+    db = SessionLocal()
+    try:
+        tasks = db.query(Task).all()
+        return tasks
+    finally:
+        db.close()  # Важно!
