@@ -40,6 +40,14 @@ else:
     LOG_DIR = BASE_DIR / "logs"
     LOG_FILE = LOG_DIR / "bot.log"
     
-    # Создаем папку для логов, если ее нет
+# Создаем папку для логов, если ее нет
     if not LOG_DIR.exists():
         LOG_DIR.mkdir()
+
+class Config:
+    # ... существующие настройки ...
+    
+    # Zabbix monitoring
+    ZABBIX_HOST = "zabbix.example.com"
+    ZABBIX_PORT = 10051
+    ZABBIX_CLIENT_NAME = "certus-telecom-bot-prod"
