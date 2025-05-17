@@ -5,6 +5,11 @@ echo "Installing system dependencies..."
 sudo apt update
 sudo apt install -y python3-dev python3-venv libmysqlclient-dev build-essential mysql-server
 
+# Для MariaDB:
+sudo mariadb -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME}"
+sudo mariadb -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}'"
+sudo mariadb -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost'"
+
 echo "Setting up MySQL..."
 sudo mysql -e "CREATE DATABASE IF NOT EXISTS certus_telecom;"
 sudo mysql -e "CREATE USER IF NOT EXISTS 'certus_bot'@'localhost' IDENTIFIED BY 'strongpassword';"
