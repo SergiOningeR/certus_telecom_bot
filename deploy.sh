@@ -30,4 +30,17 @@ sudo systemctl daemon-reload
 sudo systemctl enable certus_bot.service
 sudo systemctl start certus_bot.service
 
+echo "Starting services..."
+sudo systemctl daemon-reload
+sudo systemctl enable certus_bot.service
+sudo systemctl enable certus_admin.service
+sudo systemctl start certus_bot
+sudo systemctl start certus_admin
+
+echo "Configuring Nginx as reverse proxy..."
+sudo apt install -y nginx
+sudo cp /opt/certus_telecom_bot/deploy/nginx.conf /etc/nginx/sites-available/certus
+sudo ln -s /etc/nginx/sites-available/certus /etc/nginx/sites-enabled
+sudo nginx -t && sudo systemctl restart nginx
+
 echo "Deployment complete!"
