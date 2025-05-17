@@ -19,7 +19,7 @@
 
 1. Клонировать репозиторий:
 ```bash
-git clone https://github.com/yourusername/certus_telecom_bot.git
+git clone https://github.com/SergiOningeR/certus_telecom_bot.git
 cd certus_telecom_bot
 ```
 2. Установить зависимости:
