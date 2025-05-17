@@ -51,3 +51,10 @@ class Config:
     ZABBIX_HOST = "zabbix.example.com"
     ZABBIX_PORT = 10051
     ZABBIX_CLIENT_NAME = "certus-telecom-bot-prod"
+
+class Config:
+    # ... существующие настройки ...
+    
+    # Admin panel
+    ADMIN_API_KEY = "your-secure-api-key-here"
+    ADMIN_PANEL_PORT = 8000
