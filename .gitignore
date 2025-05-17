@@ -49,3 +49,7 @@ logs/
 # System
 .DS_Store
 Thumbs.db
+
+*.pem
+*.key
+.env
