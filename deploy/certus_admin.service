@@ -1,0 +1,14 @@
+[Unit]
+Description=Certus Telecom Admin Panel
+After=network.target certus_bot.service
+
+[Service]
+User=botuser
+WorkingDirectory=/opt/certus_telecom_bot
+Environment="PYTHONPATH=/opt/certus_telecom_bot"
+ExecStart=/opt/certus_telecom_bot/venv/bin/python -m admin_panel.main
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
