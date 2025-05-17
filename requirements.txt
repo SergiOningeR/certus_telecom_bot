@@ -1,12 +1,9 @@
 aiogram==2.25.1
+fastapi==0.95.0
+uvicorn==0.21.1
 sqlalchemy==1.4.41
 pymysql==1.0.2
 python-dotenv==0.21.0
-fastapi==0.95.0
-uvicorn==0.21.1
 python-multipart==0.0.6
 python-jose==3.3.0
 passlib==1.7.4
-fastapi==0.95.0
-uvicorn==0.21.1
-zabbix-api==0.5.4
