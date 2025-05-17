@@ -44,9 +44,6 @@ else:
     if not LOG_DIR.exists():
         LOG_DIR.mkdir()
 
-class Config:
-    # ... существующие настройки ...
-    
     # Zabbix monitoring
     ZABBIX_HOST = "zabbix.example.com"
     ZABBIX_PORT = 10051
@@ -58,3 +55,13 @@ class Config:
     # Admin panel
     ADMIN_API_KEY = "your-secure-api-key-here"
     ADMIN_PANEL_PORT = 8000
+
+from monitoring.zabbix_integration import ZabbixMonitor
+
+async def on_startup(dp):
+    # Инициализация мониторинга
+    dp['zabbix'] = ZabbixMonitor()
+    await dp['zabbix'].send_metric('bot.status', 'started')
+
+async def on_shutdown(dp):
+    await dp['zabbix'].send_metric('bot.status', 'stopped')
