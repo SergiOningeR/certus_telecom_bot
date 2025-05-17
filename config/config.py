@@ -35,3 +35,11 @@ if os.getenv('ENVIRONMENT') == 'production':
     config = ProductionConfig()
 else:
     config = DevelopmentConfig()
+
+# Логирование
+    LOG_DIR = BASE_DIR / "logs"
+    LOG_FILE = LOG_DIR / "bot.log"
+    
+    # Создаем папку для логов, если ее нет
+    if not LOG_DIR.exists():
+        LOG_DIR.mkdir()
