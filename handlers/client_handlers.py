@@ -2,7 +2,13 @@ from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import ContentType
-from database.db_operations import create_task, get_client_tasks, cancel_task
+from database.db_operations import (
+    create_task,
+    get_client_tasks,
+    cancel_task,
+    get_task_by_id,
+    update_task_status
+)
 from utils.keyboards import client_main_menu, priority_keyboard
 from utils.validators import validate_phone
 from config.config import config, TaskStatus
