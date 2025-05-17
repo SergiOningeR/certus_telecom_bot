@@ -11,7 +11,7 @@ class Config:
     # Настройки базы данных
     DB_HOST = "localhost"
     DB_USER = "certus_bot"
-    DB_PASSWORD = "secure_password"
+    DB_PASSWORD = "ваш_пароль"
     DB_NAME = "certus_telecom"
     
     # Пути к файлам
