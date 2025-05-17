@@ -1,0 +1,14 @@
+[Unit]
+Description=Certus Telecom Bot
+After=network.target mysql.service
+
+[Service]
+User=botuser
+WorkingDirectory=/opt/certus_telecom_bot
+Environment="PYTHONPATH=/opt/certus_telecom_bot"
+ExecStart=/usr/bin/python3 /opt/certus_telecom_bot/main.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
