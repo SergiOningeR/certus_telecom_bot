@@ -64,6 +64,7 @@ cd certus_telecom_bot
 ### Установите зависимости:
 ```bash
 pip3 install -r requirements.txt
+sudo apt install -y python3-dev python3-venv libmysqlclient-dev build-essential
 ```
 ### Настройте бота через config/config.py
 
