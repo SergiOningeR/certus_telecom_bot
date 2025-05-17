@@ -1,64 +1,27 @@
 import os
 from pathlib import Path
 
-# Базовые настройки
 class Config:
-    # Настройки бота
-    BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-    ADMIN_GROUP_ID = -1001234567890  # ID группы администраторов
-    ADMIN_GROUP_THREAD_ID = 123      # ID темы в группе для заявок
+    # Telegram
+    BOT_TOKEN = "7807656215:AAFwoLQvLNZ1-6ZPv1XVTD33pUXRb5GbPSo"  # Заменить у @BotFather
+    ADMIN_GROUP_ID =  -1002460971966  # ID группы с минусом
+    ADMIN_GROUP_THREAD_ID = 1      # ID темы
     
-    # Настройки базы данных
+    # Database
     DB_HOST = "localhost"
     DB_USER = "certus_bot"
-    DB_PASSWORD = "ваш_пароль"
+    DB_PASSWORD = "PassWord#@!!"  # Заменить
     DB_NAME = "certus_telecom"
     
-    # Пути к файлам
+    # Paths
     BASE_DIR = Path(__file__).parent.parent
     IMAGES_DIR = BASE_DIR / "images"
+    LOG_DIR = BASE_DIR / "logs"
     
-    # Создаем папку для изображений, если ее нет
+    # Create dirs
     if not IMAGES_DIR.exists():
         IMAGES_DIR.mkdir()
-
-# Настройки для разработки
-class DevelopmentConfig(Config):
-    DEBUG = True
-
-# Настройки для производства
-class ProductionConfig(Config):
-    DEBUG = False
-
-# Выбираем конфигурацию в зависимости от окружения
-if os.getenv('ENVIRONMENT') == 'production':
-    config = ProductionConfig()
-else:
-    config = DevelopmentConfig()
-
-# Логирование
-    LOG_DIR = BASE_DIR / "logs"
-    LOG_FILE = LOG_DIR / "bot.log"
-    
-# Создаем папку для логов, если ее нет
     if not LOG_DIR.exists():
         LOG_DIR.mkdir()
 
-    # Zabbix monitoring
-    ZABBIX_HOST = "zabbix.example.com"
-    ZABBIX_PORT = 10051
-    ZABBIX_CLIENT_NAME = "certus-telecom-bot-prod"
-    
-    # Admin panel
-    ADMIN_API_KEY = "your-secure-api-key-here"
-    ADMIN_PANEL_PORT = 8000
-
-from monitoring.zabbix_integration import ZabbixMonitor
-
-async def on_startup(dp):
-    # Инициализация мониторинга
-    dp['zabbix'] = ZabbixMonitor()
-    await dp['zabbix'].send_metric('bot.status', 'started')
-
-async def on_shutdown(dp):
-    await dp['zabbix'].send_metric('bot.status', 'stopped')
+config = Config()
