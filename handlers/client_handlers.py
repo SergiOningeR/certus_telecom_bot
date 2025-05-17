@@ -107,7 +107,8 @@ async def process_task_company(message: types.Message, state: FSMContext):
         data['company'] = message.text
         data['telegram_user_id'] = message.from_user.id
         data['telegram_username'] = message.from_user.username
-        
+        await message.bot['zabbix'].track_new_task(task_id)
+
         # Сохраняем задачу в базу данных
         task_id = await create_task(data)
         
