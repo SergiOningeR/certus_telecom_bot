@@ -1,5 +1,6 @@
 import logging
 from aiogram import Bot, Dispatcher, types
+from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from config.config import config
 from handlers import client_handlers, admin_handlers, common_handlers
@@ -13,11 +14,20 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 async def setup_bot():
+dp.middleware.setup(LoggingMiddleware())
+    
+    # Обработка ошибок
+    async def on_error(update: types.Update, exception: Exception):
+    logger.error(f"Update {update} caused error {exception}")
+    return True
+    
+    dp.register_errors_handler(on_error)
+
     # Инициализация бота и диспетчера
     bot = Bot(token=config.BOT_TOKEN)
     storage = MemoryStorage()
     dp = Dispatcher(bot, storage=storage)
-    
+    dp.middleware.setup(LoggingMiddleware())
     # Инициализация базы данных
     init_db()
     
