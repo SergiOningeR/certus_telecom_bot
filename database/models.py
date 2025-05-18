@@ -18,7 +18,4 @@ class Task(Base):
     status = Column(Enum(TaskStatus), default=TaskStatus.NEW)
     created_at = Column(DateTime, default=datetime.utcnow)
     telegram_user_id = Column(Integer, nullable=False)
-    telegram_username = Column(String(50))
     admin_comment = Column(Text)
-    completion_report = Column(Text)
-    admin_message_id = Column(Integer)  # Для хранения ID сообщения в группе
