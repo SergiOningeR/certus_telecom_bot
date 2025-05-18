@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from .models import Task
 from .setup_db import SessionLocal
-from datetime import datetime
+from config.config import config
 import logging
 
 logger = logging.getLogger(__name__)
@@ -28,11 +28,11 @@ async def create_task(task_data: dict):
     finally:
         db.close()
 
-async def get_client_tasks(telegram_user_id: int):
+async def get_client_tasks(user_id: int):
     db = SessionLocal()
     try:
         return db.query(Task).filter(
-            Task.telegram_user_id == telegram_user_id
+            Task.telegram_user_id == user_id
         ).order_by(Task.created_at.desc()).all()
     except Exception as e:
         logger.error(f"DB error: {e}")
@@ -40,34 +40,7 @@ async def get_client_tasks(telegram_user_id: int):
     finally:
         db.close()
 
-async def cancel_task(task_id: int, by_client: bool = False):
-    db = SessionLocal()
-    try:
-        task = db.query(Task).filter(Task.id == task_id).first()
-        if not task:
-            return False
-        
-        task.status = "cancelled_by_client" if by_client else "cancelled_by_admin"
-        db.commit()
-        return True
-    except Exception as e:
-        db.rollback()
-        logger.error(f"DB error: {e}")
-        return False
-    finally:
-        db.close()
-
-async def get_task_by_id(task_id: int):
-    db = SessionLocal()
-    try:
-        return db.query(Task).filter(Task.id == task_id).first()
-    except Exception as e:
-        logger.error(f"DB error: {e}")
-        return None
-    finally:
-        db.close()
-
-async def update_task_status(task_id: int, new_status: str, admin_comment: str = None):
+async def update_task_status(task_id: int, new_status: str, comment: str = None):
     db = SessionLocal()
     try:
         task = db.query(Task).filter(Task.id == task_id).first()
@@ -75,8 +48,12 @@ async def update_task_status(task_id: int, new_status: str, admin_comment: str =
             return False
         
         task.status = new_status
-        if admin_comment:
-            task.admin_comment = admin_comment
+        if comment:
+            if new_status == "completed":
+                task.completion_report = comment
+            else:
+                task.admin_comment = comment
+                
         db.commit()
         return True
     except Exception as e:
